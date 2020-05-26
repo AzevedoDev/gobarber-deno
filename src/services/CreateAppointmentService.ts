@@ -3,7 +3,6 @@ import AppointmentsRepo from "../repositories/AppointmentsRepo.ts";
 import {
   startOfHour,
 } from "https://deno.land/x/date_fns/index.js";
-
 interface Request {
   date: Date;
   provider: string;
@@ -17,7 +16,7 @@ class CreateAppointmentService {
   /**
    * execute
    */
-  public execute({ date, provider }: Request): Appointment {
+  public async execute({ date, provider }: Request): Promise<Appointment> {
     const appointmentDate = startOfHour(date);
     const findAppointmentInSameDate = this.appointmentsRepo.findByDate(
       appointmentDate,
@@ -26,7 +25,7 @@ class CreateAppointmentService {
       throw Error("This appointment is already booked");
     }
 
-    const appointment = this.appointmentsRepo.create(
+    const appointment = await this.appointmentsRepo.create(
       { provider, date: appointmentDate },
     );
     return appointment;

@@ -2,6 +2,8 @@ import Appointment from "../models/Appointment.ts";
 import {
   isEqual,
 } from "https://deno.land/x/date_fns/index.js";
+import AppointmentSchema from "../database/Appointments.ts";
+import { database } from "../database/connection.ts";
 
 interface CreateAppointmentDTO {
   provider: string;
@@ -34,11 +36,13 @@ class AppointmentsRepo {
   /**
    * create = create a new appointment
    */
-  public create({ provider, date }: CreateAppointmentDTO): Appointment {
+  public async create(
+    { provider, date }: CreateAppointmentDTO,
+  ): Promise<Appointment> {
     const appointment = new Appointment(
       { provider, date },
     );
-    this.appointments.push(appointment);
+    await AppointmentSchema.create({ provider, date });
     return appointment;
   }
 }
