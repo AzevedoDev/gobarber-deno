@@ -12,11 +12,9 @@ A simple [Deno](https://deno.land/) REST API created with [Oak](https://oakserve
 
 #Routes
 
-To get all appointments, use a method `GET` :
-`GET /appointment`
+To get all appointments, use a method :`GET /appointment` (Disclaimer: For now, I use Local variable to save appointments, integrate of a database is on my roadmap)
 
-To create an appointment, use a method `POST` :
-`POST /appointment`
+To create an appointment, use a method :`POST /appointment` with this `JSON` body
 
 ```
 {
