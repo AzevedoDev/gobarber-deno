@@ -4,13 +4,17 @@ services:
   app:
     build: .
     working_dir: /opt/app
+    environment:
+      GOBARBERDB: gobarber
+      GOBARBERPORT: 3000
+      GOBARBERDBUSER: postgres
+      GOBARBERDBPASSWORD: admin
+      GOBARBERDBSERVER: db
     ports:
       - 3000:3000
     volumes:
       - ./src:/opt/app
     depends_on:
-      - db
-    links:
       - db
 
   db:
@@ -21,8 +25,6 @@ services:
       POSTGRES_DB: gobarber
     ports:
       - 5432:5432
-    expose:
-      - "5432"
   # adminer:
   #   image: adminer
   #   restart: always

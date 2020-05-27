@@ -6,11 +6,13 @@ import {
   white,
 } from "../deps.ts";
 
+const Environment = Deno.env.toObject();
+
 export const database = new Database("postgres", {
-  database: "gobarber",
-  host: "localhost",
-  username: "postgres",
-  password: "admin",
+  database: Environment.GOBARBERDB,
+  host: Environment.GOBARBERDBSERVER,
+  username: Environment.GOBARBERDBUSER,
+  password: Environment.GOBARBERDBPASSWORD,
 });
 
 export async function start() {

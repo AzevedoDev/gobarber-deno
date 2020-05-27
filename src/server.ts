@@ -10,6 +10,7 @@ try {
   app.use(appointmentsRouters.routes());
   app.use(appointmentsRouters.allowedMethods());
 } catch (error) {
+  console.error(error);
 }
 
 console.log("App start on port 3000 🚀");

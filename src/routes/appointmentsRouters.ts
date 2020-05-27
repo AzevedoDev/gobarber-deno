@@ -15,8 +15,7 @@ appointmentsRouters.post("/appointment", async ({ request, response }) => {
     const appointment = await createAppointmentService.execute(
       { provider, date: parseDate },
     );
-    console.log(appointment);
-    response.body = { appointment };
+    response.body = appointment;
   } catch (error) {
     response.status = 400;
     response.body = { error: error.message };
