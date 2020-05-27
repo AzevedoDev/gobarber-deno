@@ -12,8 +12,19 @@ services:
     ports:
       - 5432:5432
 
-  adminer:
-    image: adminer
+  app:
+    build: .
     restart: always
-    ports:
-      - 8090:8090
+    working_dir: /opt/app
+    ports: 
+      - 3000:3000
+    volumes:
+      - ./src:/opt/app
+    depends_on:
+      - db
+ 
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8090:8090
