@@ -1,6 +1,7 @@
 import Appointment, { AppointmentSchema } from "../models/Appointment.ts";
 import {
   isEqual,
+  parseISO,
 } from "https://deno.land/x/date_fns/index.js";
 
 interface CreateAppointmentDTO {
@@ -9,26 +10,27 @@ interface CreateAppointmentDTO {
 }
 
 class AppointmentsRepo {
-  private appointments: Appointment[];
-  constructor() {
-    this.appointments = [];
-  }
-
   /**
    * all = Get all appointments from database
    */
-  public all() {
-    return this.appointments;
+  public async all() {
+    try {
+      const getAppointments = await AppointmentSchema.all();
+      return getAppointments;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   /**
    * findByDate = find appointments by Date
    */
-  public findByDate(date: Date): Appointment | null {
-    const findAppointment = this.appointments.find((appointment) =>
+  public async findByDate(date: Date): Promise<any> {
+    const getAppointments = await AppointmentSchema.all();
+    const findAppointment = await getAppointments.find((appointment) =>
       isEqual(date, appointment.date)
     );
-    return findAppointment || null;
+    return findAppointment;
   }
 
   /**

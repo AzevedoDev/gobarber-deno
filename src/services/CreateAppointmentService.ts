@@ -1,9 +1,8 @@
 import Appointment from "../models/Appointment.ts";
 import AppointmentsRepo from "../repositories/AppointmentsRepo.ts";
 import {
-  startOfHour,
+  startOfMinute,
 } from "../deps.ts";
-import * as database from "../database/mod.ts";
 
 interface Request {
   date: Date;
@@ -19,9 +18,8 @@ class CreateAppointmentService {
    * execute
    */
   public async execute({ date, provider }: Request): Promise<Appointment> {
-    await database.connection.start();
-    const appointmentDate = startOfHour(date);
-    const findAppointmentInSameDate = this.appointmentsRepo.findByDate(
+    const appointmentDate = startOfMinute(date);
+    const findAppointmentInSameDate = await this.appointmentsRepo.findByDate(
       appointmentDate,
     );
     if (findAppointmentInSameDate) {

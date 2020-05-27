@@ -16,7 +16,7 @@ export class AppointmentSchema extends Model {
   static fields = {
     id: DATA_TYPES.TEXT,
     provider: DATA_TYPES.STRING,
-    date: DATA_TYPES.DATETIME,
+    date: DATA_TYPES.TIMESTAMP,
   };
 }
 

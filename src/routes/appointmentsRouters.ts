@@ -21,5 +21,5 @@ appointmentsRouters.post("/appointment", async ({ request, response }) => {
     response.body = { error: error.message };
   }
 }).get("/appointment", async ({ response }) => {
-  response.body = appointmentsRepo.all();
+  response.body = await appointmentsRepo.all();
 });

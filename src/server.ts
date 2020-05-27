@@ -1,6 +1,7 @@
-import { Application } from "https://deno.land/x/oak/mod.ts";
+import { Application } from "./deps.ts";
 import { appointmentsRouters } from "./routes/appointmentsRouters.ts";
 import { logger, timer } from "./middlewares/mod.ts";
+import * as database from "./database/mod.ts";
 
 const app = new Application();
 
@@ -9,6 +10,7 @@ try {
   app.use(timer);
   app.use(appointmentsRouters.routes());
   app.use(appointmentsRouters.allowedMethods());
+  await database.connection.start();
 } catch (error) {
   console.error(error);
 }

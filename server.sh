@@ -1,2 +1,2 @@
 #bash
-denon run --allow-net src/server.ts 
+denon run -A src/server.ts 
