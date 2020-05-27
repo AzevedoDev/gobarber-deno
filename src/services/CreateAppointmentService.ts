@@ -2,7 +2,9 @@ import Appointment from "../models/Appointment.ts";
 import AppointmentsRepo from "../repositories/AppointmentsRepo.ts";
 import {
   startOfHour,
-} from "https://deno.land/x/date_fns/index.js";
+} from "../deps.ts";
+import * as database from "../database/mod.ts";
+
 interface Request {
   date: Date;
   provider: string;
@@ -17,6 +19,7 @@ class CreateAppointmentService {
    * execute
    */
   public async execute({ date, provider }: Request): Promise<Appointment> {
+    await database.connection.start();
     const appointmentDate = startOfHour(date);
     const findAppointmentInSameDate = this.appointmentsRepo.findByDate(
       appointmentDate,

@@ -1,9 +1,10 @@
-import { Database } from "https://deno.land/x/denodb/mod.ts";
-import AppointmentSchema from "../database/Appointments.ts";
+import { Database } from "../deps.ts";
+import { AppointmentSchema } from "../models/Appointment.ts";
+
 import {
   bgBlue,
   white,
-} from "https://deno.land/std/fmt/colors.ts";
+} from "../deps.ts";
 
 export const database = new Database("postgres", {
   database: "gobarber",
@@ -16,8 +17,12 @@ export async function start() {
   const startServer = (message: string) => {
     return bgBlue(white(`[ ${message} ]`));
   };
-  console.log(startServer("START CONNECT TO DATABASE"));
-  database.link([AppointmentSchema]);
-  await database.sync();
-  console.log(startServer("CONNECTION STABLISHED"));
+  try {
+    console.log(startServer("START CONNECT TO DATABASE"));
+    await database.link([AppointmentSchema]);
+    await database.sync({ drop: true });
+    console.log(startServer("CONNECTION STABLISHED"));
+  } catch (error) {
+    console.log(error);
+  }
 }

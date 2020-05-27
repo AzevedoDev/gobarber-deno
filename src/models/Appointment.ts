@@ -1,4 +1,4 @@
-import { v4 } from "https://deno.land/std/uuid/mod.ts";
+import { DATA_TYPES, Model, v4 } from "../deps.ts";
 class Appointment {
   id: string;
   provider: string;
@@ -8,6 +8,16 @@ class Appointment {
     this.date = date;
     this.id = v4.generate();
   }
+}
+export class AppointmentSchema extends Model {
+  static table = "appointments";
+  static timestamps = true;
+
+  static fields = {
+    id: DATA_TYPES.TEXT,
+    provider: DATA_TYPES.STRING,
+    date: DATA_TYPES.DATETIME,
+  };
 }
 
 export default Appointment;

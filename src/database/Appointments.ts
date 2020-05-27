@@ -1,10 +1,10 @@
-import { DATA_TYPES, Model } from "https://deno.land/x/denodb/mod.ts";
+import { DATA_TYPES, Model } from "../deps.ts";
 class AppointmensSchema extends Model {
   static table = "appointments";
   static timestamps = true;
 
   static fields = {
-    id: DATA_TYPES.STRING,
+    id: DATA_TYPES.TEXT,
     provider: DATA_TYPES.STRING,
     date: DATA_TYPES.DATETIME,
   };

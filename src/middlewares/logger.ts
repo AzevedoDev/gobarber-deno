@@ -11,8 +11,7 @@ import {
   underline,
   bold,
   black,
-  bgGreen,
-} from "https://deno.land/std/fmt/colors.ts";
+} from "../deps.ts";
 
 export const logger: Middleware = async ({ request, response }, next) => {
   await next();

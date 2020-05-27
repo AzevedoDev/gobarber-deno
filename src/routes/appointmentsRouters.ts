@@ -1,7 +1,4 @@
-import { Router } from "https://deno.land/x/oak/mod.ts";
-import {
-  parseISO,
-} from "https://deno.land/x/date_fns/index.js";
+import { parseISO, Router } from "../deps.ts";
 import AppointmentsRepo from "../repositories/AppointmentsRepo.ts";
 import CreateAppointmentService from "../services/CreateAppointmentService.ts";
 
@@ -15,10 +12,11 @@ appointmentsRouters.post("/appointment", async ({ request, response }) => {
     const createAppointmentService = new CreateAppointmentService(
       appointmentsRepo,
     );
-    const appointment = createAppointmentService.execute(
+    const appointment = await createAppointmentService.execute(
       { provider, date: parseDate },
     );
-    response.body = appointment;
+    console.log(appointment);
+    response.body = { appointment };
   } catch (error) {
     response.status = 400;
     response.body = { error: error.message };
