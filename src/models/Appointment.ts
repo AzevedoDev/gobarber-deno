@@ -1,5 +1,11 @@
 import { DATA_TYPES, Model, v4 } from "../deps.ts";
-class Appointment {
+
+export interface IAppointment {
+  id: string;
+  provider: string;
+  date: Date;
+}
+class Appointment implements IAppointment {
   id: string;
   provider: string;
   date: Date;

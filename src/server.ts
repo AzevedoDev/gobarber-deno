@@ -15,5 +15,6 @@ try {
   console.error(error);
 }
 
-console.log("App start on port 3000 🚀");
-await app.listen({ port: 3000 });
+const PORT = Deno.env.get("PORT") || 3000;
+console.log(`App start on port ${PORT} 🚀`);
+await app.listen({ port: +PORT });
