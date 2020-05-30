@@ -16,13 +16,12 @@ RUN apt-get -qq update \
   && apt-get -y -qq autoremove \
   && apt-get -qq clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-  && mkdir -p /home/site/wwwroot /opt/app
+  && mkdir -p /opt/app 
 
-ENV DENO_DIR /deno-dir/
+ENV DENO_DIR /opt/app
 ENV PORT 3000
-EXPOSE 3000
+EXPOSE ${PORT}
 
-WORKDIR /home/site/wwwroot
-COPY . /opt/app
+WORKDIR ${DENO_DIR}
 
 CMD ["deno", "run", "-A", "server.ts"]
